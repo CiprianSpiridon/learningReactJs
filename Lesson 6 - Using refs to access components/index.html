@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Lesson 6</title>
+    <!---Include reactjs using cdn-->
+    <script src="https://fb.me/react-0.13.3.min.js"></script>
+    <!-- include JSX transformer -->
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+</head>
+<body>
+
+<!-- we'll use JSX tu write the reactJS templates-->
+<script type="text/jsx">
+    /*Create the "App" component*/
+    var App = React.createClass({
+        getInitialState: function () {
+            return {
+                red: 0,
+                green: 0,
+                blue: 0
+            }
+        },
+        //custom funtion to update the state
+        update: function (e) {
+            this.setState({
+                red: this.refs.red.refs.inp.getDOMNode().value,
+                green: this.refs.green.refs.inp.getDOMNode().value,
+                blue: this.refs.blue.refs.inp.getDOMNode().value
+            })
+        },
+        render: function () {
+            return (
+                    <div>
+                        <Slider ref="red" update={this.update} />
+                        <label>{this.state.red}</label>
+                        <Slider ref="green" update={this.update} />
+                        <label>{this.state.green}</label>
+                        <Slider ref="blue" update={this.update} />
+                        <label>{this.state.blue}</label>
+                    </div>
+            )
+        }
+    });
+    var Slider = React.createClass({
+        render: function () {
+            return (
+            <div>
+                <input ref="inp" type="range" min="0" max="255" onchange={this.props.update} />
+            </div>
+         )
+        }
+    });
+    //new values for the properties
+    React.render(<App />, document.body);
+</script>
+
+</body>
+</html>

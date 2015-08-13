@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Lesson 8</title>
+    <!---Include reactjs using cdn-->
+    <script src="https://fb.me/react-0.13.3.min.js"></script>
+    <!-- include JSX transformer -->
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <!--Boostrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- we'll use JSX tu write the reactJS templates-->
+<script type="text/jsx">
+
+    var Button = React.createClass({
+        getInitialState: function () {
+            return {val: 0}
+        },
+        update: function () {
+            this.setState({val: this.state.val + 1});
+        },
+        componentWillMount: function () {
+            console.log("mounting");
+        },
+        render: function () {
+            console.log("rendering");
+            return (
+                    <button onClick={this.update}>{this.state.val}</button>
+            )
+        },
+        componentDidMount: function () {
+            console.log("mounted");
+        },
+        componentWillUnmount: function () {
+            console.log("unmounted")
+        }
+    });
+    var App = React.createClass({
+        mount: function () {
+            React.render(<Button />, document.getElementById('app'));
+        },
+        unmount: function () {
+            React.unmountComponentAtNode(document.getElementById('app'));
+        },
+        render: function () {
+            return (
+                    <div>
+                        <button onClick={this.mount}>Mount</button>
+                        <button onClick={this.unmount}>unMount</button>
+                        <div id="app"></div>
+                    </div>
+            );
+        }
+    });
+    //new values for the properties
+    React.render(<App />, document.body);
+</script>
+
+</body>
+</html>
