@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Lesson 10</title>
+    <!---Include reactjs using cdn-->
+    <script src="https://fb.me/react-0.13.3.min.js"></script>
+    <!-- include JSX transformer -->
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <!--Boostrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- we'll use JSX tu write the reactJS templates-->
+<script type="text/jsx">
+    var ReactMixin = {
+        getInitialState: function () {
+            return {
+                count: 0
+            };
+        },
+        componentWillMount: function () {
+            console.log("will mount");
+        },
+        incrementCount: function () {
+            this.setState({count: this.state.count + 1});
+        }
+    };
+    var Button = React.createClass({
+        mixins: [ReactMixin],
+        render: function () {
+            return (
+                    <button className="btn btn-large" onClick={this.incrementCount}>{this.props.txt}
+                        - {this.state.count}</button>
+            );
+        }
+    });
+    var Label = React.createClass({
+        mixins: [ReactMixin],
+        ///we ovveride the mixin
+        componentWillMount:function(){
+          setInterval(this.incrementCount,1000);
+        },
+        render: function () {
+            return (
+                    <label>{this.props.txt} - {this.state.count}</label>
+            );
+        }
+    });
+    var App = React.createClass({
+        render: function () {
+            return (
+                    <div>
+                        <Button txt="default value button"/>
+                        <br />
+                        <Label txt="default value label"/>
+                    </div>
+            );
+        }
+    });
+
+    //new values for the properties
+    React.render(<App val={0}/>, document.body);
+</script>
+
+</body>
+</html>
