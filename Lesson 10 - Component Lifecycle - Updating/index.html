@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Lesson 10</title>
+    <!---Include reactjs using cdn-->
+    <script src="https://fb.me/react-0.13.3.min.js"></script>
+    <!-- include JSX transformer -->
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <!--Boostrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- we'll use JSX tu write the reactJS templates-->
+<script type="text/jsx">
+
+    var Button = React.createClass({
+        getInitialState: function () {
+            return {increasing: false}
+        },
+        update: function () {
+            this.setProps({val: this.props.val + 1});
+        },
+        componentWillReceiveProps: function (nextProps) {
+            this.setState({increasing: nextProps.val > this.props.val});
+
+        },
+        shouldComponentUpdate:function(nextProps, nextState){
+            //update only if the val is multiple of 5
+            return nextProps.val % 5 === 0;
+        },
+        render: function () {
+            console.log(this.state.increasing);
+            return (
+                    <button className="btn" onClick={this.update}>{this.props.val}</button>
+            )
+        },
+        componentDidUpdate: function(nextProps, nextState){
+            console.log('prevProps',nextProps)
+        }
+    });
+
+    //new values for the properties
+    React.render(<Button val={0} />, document.body);
+</script>
+
+</body>
+</html>
